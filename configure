@@ -253,6 +253,7 @@ External library support:
   --enable-libopencore-amrnb enable AMR-NB de/encoding via libopencore-amrnb [no]
   --enable-libopencore-amrwb enable AMR-WB decoding via libopencore-amrwb [no]
   --enable-libopencv       enable video filtering via libopencv [no]
+  --enable-libopencv4      enable video filtering via libopencv4 [no]
   --enable-libopenh264     enable H.264 encoding via OpenH264 [no]
   --enable-libopenjpeg     enable JPEG 2000 encoding via OpenJPEG [no]
   --enable-libopenmpt      enable decoding tracked files via libopenmpt [no]
@@ -1940,6 +1941,7 @@ EXTERNAL_LIBRARY_LIST="
     libmp3lame
     libmysofa
     libopencv
+    libopencv4
     libopenh264
     libopenjpeg
     libopenmpt
@@ -3939,6 +3941,7 @@ nlmeans_vulkan_filter_deps="vulkan spirv_compiler"
 nnedi_filter_deps="gpl"
 ocr_filter_deps="libtesseract"
 ocv_filter_deps="libopencv"
+ocv_filter_deps="libopencv4"
 openclsrc_filter_deps="opencl"
 qrencode_filter_deps="libqrencode"
 qrencodesrc_filter_deps="libqrencode"
@@ -7000,6 +7003,9 @@ enabled libopencv         && { check_headers opencv2/core/core_c.h &&
                                { check_pkg_config libopencv opencv opencv2/core/core_c.h cvCreateImageHeader ||
                                  require libopencv opencv2/core/core_c.h cvCreateImageHeader -lopencv_core -lopencv_imgproc; } ||
                                require_pkg_config libopencv opencv opencv/cxcore.h cvCreateImageHeader; }
+enabled libopencv4        && { check_headers opencv2/core.hpp && 
+                               require_pkg_config libopencv4 opencv4 opencv2/core.hpp cv::Mat;
+                             }
 enabled libopenh264       && require_pkg_config libopenh264 "openh264 >= 1.3.0" wels/codec_api.h WelsGetCodecVersion
 enabled libopenjpeg       && { check_pkg_config libopenjpeg "libopenjp2 >= 2.1.0" openjpeg.h opj_version ||
                                { require_pkg_config libopenjpeg "libopenjp2 >= 2.1.0" openjpeg.h opj_version -DOPJ_STATIC && add_cppflags -DOPJ_STATIC; } }
