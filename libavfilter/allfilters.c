@@ -21,7 +21,6 @@
 
 #include "avfilter.h"
 #include "filters.h"
-#include "vf_imagebul.h"
 
 extern const FFFilter ff_af_aap;
 extern const FFFilter ff_af_abench;
